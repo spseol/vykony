@@ -1,1 +1,0 @@
-vykony.cgi

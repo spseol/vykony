@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <title>Výkon střídavého proudu</title>
+  <meta charset="utf-8">
+  <meta name="description" 
+        content="výkon střídavého proudu v závislosti na fázovém posuvu">
+  <meta name="author" content="Marek Nožka">
+<!--  <link rel="stylesheet" href="styles.css">-->
+<!--  <link rel="shortcut icon" href="favico.png" />-->
+  <!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <header role="banner">
+    <h1>Výkon střídavého proudu</h1>
+  </header>
+
+  <main role="main">
+  <form  method="get" action="{{url_for('index')}}">
+    <p>fázový posun napětí a proudu:
+      <input type="text" size="5" name="angle" value="{{angle}}" />
+    </p>
+    </form>
+    <p> <img src="data:image/png;base64,{{img}}"
+             alt="Okamžité hodnoty napětí proudu a výkonu"></img></p>
+	</main>
+
+  <footer>
+    <p>Powered by: 
+    <a href="http://linux.cz">Linux</a>, 
+    <a href="http://python.org">Python</a>, 
+    <a href="http://flask.pocoo.org/">Flask</a>, 
+    <a href="http://matplotlib.org">Matplotlib</a>
+    </p>
+  </footer>
+</body>
+</html>
