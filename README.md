@@ -3,6 +3,6 @@ Výkon střídavého proudu
 
 Ukazuje časový průvěh střídavého napětí, proudu a výkonu.
 
-* <http://mamut.spesol.cz/vykony>
+* <http://mamut.spseol.cz/vykony>
 
 ![graf](graf.png)
