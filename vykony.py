@@ -10,6 +10,7 @@ from __future__ import division, print_function, unicode_literals
 from flask import (Flask, render_template, request,
                    redirect, url_for, send_from_directory)
 import os
+# os.environ['HOME'] = '/tmp/'
 import StringIO
 import base64
 import matplotlib
@@ -17,7 +18,6 @@ matplotlib.use('Agg')  # chose a non-GUI backend
 from scipy import arange, sin, pi
 from pylab import plot, savefig, figure, xlabel, ylabel, legend, title, axis
 # set HOME environment variable to a directory the httpd server can write to
-os.environ['HOME'] = '/tmp/'
 PWD = os.path.dirname(__file__)
 ############################################################################
 
