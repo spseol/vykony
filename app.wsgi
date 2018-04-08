@@ -3,7 +3,7 @@ import os
 import sys
 
 dir = os.path.dirname(__file__)
-os.chdir( dir )
+os.chdir(dir or '.')
 sys.path.insert(0, dir )
 
 import vykony 
