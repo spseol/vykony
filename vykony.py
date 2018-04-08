@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf8 -*-
 # Soubor:  vykony.py
 # Datum:   15.02.2015 13:00
@@ -6,17 +6,16 @@
 # Licence: GNU/GPL
 # Úloha:   výkon střádavého proudu v závislosti na fázovém posuvu
 ############################################################################
-from __future__ import division, print_function, unicode_literals
 from flask import (Flask, render_template, request,
                    redirect, url_for, send_from_directory)
+from scipy import arange, sin, pi
+from pylab import plot, savefig, figure, xlabel, ylabel, legend, title, axis
 import os
 # os.environ['HOME'] = '/tmp/'
-import StringIO
+from io import BytesIO
 import base64
 import matplotlib
 matplotlib.use('Agg')  # chose a non-GUI backend
-from scipy import arange, sin, pi
-from pylab import plot, savefig, figure, xlabel, ylabel, legend, title, axis
 # set HOME environment variable to a directory the httpd server can write to
 PWD = os.path.dirname(__file__)
 ############################################################################
@@ -43,11 +42,10 @@ def image_gen(angle):
     plot(t, u * i, label="p", linewidth=2)
     axis([-0.1, 1.1, -1.2, 1.2])
     legend()
-    output = StringIO.StringIO()
+    output = BytesIO()
     savefig(output)
-    r = base64.b64encode(output.getvalue())
+    r = base64.b64encode(output.getvalue()).decode('ascii')
     output.close()
-    print(output)
     return r
 
 
@@ -82,6 +80,7 @@ def underzero(angle):
     return redirect(url_for('index') + str(360-angle))
 
 ############################################################################
+
 
 if __name__ == '__main__':
     app.run(host='::1', port=8080, debug=True)
