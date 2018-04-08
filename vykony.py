@@ -6,18 +6,18 @@
 # Licence: GNU/GPL
 # Úloha:   výkon střádavého proudu v závislosti na fázovém posuvu
 ############################################################################
-from flask import (Flask, render_template, request,
-                   redirect, url_for, send_from_directory)
+from flask import (Flask, render_template, request, redirect, url_for)
 from scipy import arange, sin, pi
-from pylab import plot, savefig, figure, xlabel, ylabel, legend, title, axis
+import matplotlib.pyplot as plt
 import os
 # os.environ['HOME'] = '/tmp/'
 from io import BytesIO
 import base64
-import matplotlib
-matplotlib.use('Agg')  # chose a non-GUI backend
+
 # set HOME environment variable to a directory the httpd server can write to
 PWD = os.path.dirname(__file__)
+
+plt.switch_backend('Agg')
 ############################################################################
 
 app = Flask(__name__)
@@ -31,27 +31,27 @@ def image_gen(angle):
     u = sin(2 * pi * 2 * t)
     i = sin(2*pi*2*t+(angle*pi/180))
 
-    fig = figure()
+    fig = plt.figure()
     graf = fig.add_subplot(111)
     graf.grid(True)
-    title("Okamžité hodnoty napětí, proudu a výkonu")
-    xlabel("t[s]")
-    ylabel("u[V], i[A], p[W]")
-    plot(t, u, label="u")
-    plot(t, i, "--", label="i")
-    plot(t, u * i, label="p", linewidth=2)
-    axis([-0.1, 1.1, -1.2, 1.2])
-    legend()
+    plt.title("Okamžité hodnoty napětí, proudu a výkonu")
+    plt.xlabel("t[s]")
+    plt.ylabel("u[V], i[A], p[W]")
+    plt.plot(t, u, label="u")
+    plt.plot(t, i, "--", label="i")
+    plt.plot(t, u * i, label="p", linewidth=2)
+    plt.axis([-0.1, 1.1, -1.2, 1.2])
+    plt.legend()
     output = BytesIO()
-    savefig(output)
+    plt.savefig(output)
     r = base64.b64encode(output.getvalue()).decode('ascii')
     output.close()
     return r
 
 
-@app.route('/tmp/<path:filename>')
-def static_data(filename):
-    return send_from_directory('tmp', filename)
+# @app.route('/tmp/<path:filename>')
+# def static_data(filename):
+#     return send_from_directory('tmp', filename)
 
 
 @app.route('/')
